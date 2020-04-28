@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gs_quiz/main_screen.dart';
+import 'dart:io';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -109,7 +110,7 @@ class HomeScreen extends StatelessWidget {
                         elevation: 10.0,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(50.0)),
-                        onPressed: () {}),
+                        onPressed: () => exit(0)),
                   ),
                 ], //Start Button
               ),

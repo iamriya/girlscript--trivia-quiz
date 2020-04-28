@@ -36,16 +36,14 @@ class _MainScreenState extends State<MainScreen> {
         ),
       ),
       body: RefreshIndicator(
-              onRefresh: fetchQuestions,
-              child: FutureBuilder(
+        onRefresh: fetchQuestions,
+        child: FutureBuilder(
           future: fetchQuestions(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
-              return 
-              Container(
+              return Container(
                 child: getQuestionsList(),
               );
-              
             } else {
               return Center(
                 child: CircularProgressIndicator(),
@@ -99,10 +97,10 @@ class _AnswerWidgetState extends State<AnswerWidget> {
       onTap: () {
         setState(() {
           if (widget.option == widget.results[widget.index].correctAnswer) {
-          tick = Colors.green;
-        } else {
-          tick = Colors.red;
-        }
+            tick = Colors.green;
+          } else {
+            tick = Colors.red;
+          }
         });
       },
       title: Text(
