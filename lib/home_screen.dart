@@ -3,9 +3,17 @@ import 'package:gs_quiz/main_screen.dart';
 import 'dart:io';
 
 class HomeScreen extends StatelessWidget {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  _displaySnackBar(BuildContext context) {
+    final snackBar = SnackBar(content: Text('Comming Soon :)'));
+    _scaffoldKey.currentState.showSnackBar(snackBar);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Center(
           child: Text(
@@ -59,44 +67,47 @@ class HomeScreen extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.all(20.0),
                     child: RaisedButton(
-                        padding: EdgeInsets.all(10),
-                        child: Text(
-                          "LEVELS",
-                          style: TextStyle(fontSize: 30, color: Colors.white),
-                        ),
-                        color: Colors.blue,
-                        elevation: 10.0,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50.0)),
-                        onPressed: () {}),
+                      padding: EdgeInsets.all(10),
+                      child: Text(
+                        "LEVELS",
+                        style: TextStyle(fontSize: 30, color: Colors.white),
+                      ),
+                      color: Colors.blue,
+                      elevation: 10.0,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50.0)),
+                      onPressed: () => _displaySnackBar(context),
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.all(20.0),
                     child: RaisedButton(
-                        padding: EdgeInsets.all(10),
-                        child: Text(
-                          "ABOUT US",
-                          style: TextStyle(fontSize: 30, color: Colors.white),
-                        ),
-                        color: Colors.blue,
-                        elevation: 10.0,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50.0)),
-                        onPressed: () {}),
+                      padding: EdgeInsets.all(10),
+                      child: Text(
+                        "ABOUT US",
+                        style: TextStyle(fontSize: 30, color: Colors.white),
+                      ),
+                      color: Colors.blue,
+                      elevation: 10.0,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50.0)),
+                      onPressed: () => _displaySnackBar(context),
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.all(20.0),
                     child: RaisedButton(
-                        padding: EdgeInsets.all(10),
-                        child: Text(
-                          "SHARE",
-                          style: TextStyle(fontSize: 30, color: Colors.white),
-                        ),
-                        color: Colors.blue,
-                        elevation: 10.0,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50.0)),
-                        onPressed: () {}),
+                      padding: EdgeInsets.all(10),
+                      child: Text(
+                        "SHARE",
+                        style: TextStyle(fontSize: 30, color: Colors.white),
+                      ),
+                      color: Colors.blue,
+                      elevation: 10.0,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50.0)),
+                      onPressed: () => _displaySnackBar(context),
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.all(20.0),
