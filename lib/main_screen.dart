@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:gs_quiz/models/quiz.dart';
 import 'package:flutter/material.dart';
+import 'package:gs_quiz/providers/quizProvider.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 class MainScreen extends StatefulWidget {
   MainScreen({Key key}) : super(key: key);
@@ -11,13 +13,27 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  final String url =
-      'https://opentdb.com/api.php?amount=20&difficulty=easy&type=multiple';
+  String url = '';
   Quiz quiz;
   List<Results> results;
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      getLevel();
+    });
+  }
+
+  void getLevel() {
+    QuizProvider _provider = Provider.of<QuizProvider>(context, listen: false);
+    setState(() {
+      url =
+          'https://opentdb.com/api.php?amount=20&difficulty=${_provider.level}&type=multiple';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    String _level = Provider.of<QuizProvider>(context, listen: false).level;
     Future<void> fetchQuestions() async {
       var response = await http.get(url); //String
       var jsonData = json.decode(response.body); //json - Map<String, dynamic>
@@ -28,24 +44,23 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'TRIVIA',
+          'QUIZ',
           style: TextStyle(
             color: Colors.white,
             fontSize: 25,
           ),
         ),
+        backgroundColor: Colors.redAccent,
       ),
       body: RefreshIndicator(
-              onRefresh: fetchQuestions,
-              child: FutureBuilder(
+        onRefresh: fetchQuestions,
+        child: FutureBuilder(
           future: fetchQuestions(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
-              return 
-              Container(
-                child: getQuestionsList(),
+              return Container(
+                child: getQuestionsList(_level),
               );
-              
             } else {
               return Center(
                 child: CircularProgressIndicator(),
@@ -57,7 +72,7 @@ class _MainScreenState extends State<MainScreen> {
     );
   } //build method ends
 
-  ListView getQuestionsList() {
+  ListView getQuestionsList(String level) {
     return ListView.builder(
       itemCount: results.length,
       itemBuilder: (BuildContext context, int index) {
@@ -99,10 +114,10 @@ class _AnswerWidgetState extends State<AnswerWidget> {
       onTap: () {
         setState(() {
           if (widget.option == widget.results[widget.index].correctAnswer) {
-          tick = Colors.green;
-        } else {
-          tick = Colors.red;
-        }
+            tick = Colors.green;
+          } else {
+            tick = Colors.red;
+          }
         });
       },
       title: Text(
